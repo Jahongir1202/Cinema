@@ -9,6 +9,7 @@ from .views import (
     CinemaHorrorView,
     CinemaRomanceView
 )
+#ozgardi
 urlpatterns = [
     path('',CinemaViews.as_view(),name = 'home'),
     path('jangari/',CinemaJangariView.as_view(),name='jangari'),
