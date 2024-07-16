@@ -2,9 +2,5 @@
     <ul>
         <li>{{ Cinema.title }} - {{ Cinema.genre }}</li>
         <li>Poster: <img src="{{ Cinema.photo.url }}" alt="{{ Cinema.title }}"></li>
-        <li>Poster: <video width="320" height="240" controls>
-            <source src="{{ Cinema.video_file.url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video></li>
     </ul>
 {% endfor %}
