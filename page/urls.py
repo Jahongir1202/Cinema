@@ -9,7 +9,6 @@ from .views import (
     CinemaHorrorView,
     CinemaRomanceView
 )
-#mdflds
 urlpatterns = [
     path('',CinemaViews.as_view(),name = 'home'),
     path('jangari/',CinemaJangariView.as_view(),name='jangari'),
