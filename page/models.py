@@ -77,7 +77,7 @@ class Multifilm(models.Model):
 class MultifilmVideo(models.Model):
     multifilm = models.ForeignKey(Multifilm, related_name='videos', on_delete=models.CASCADE)
     video_file = models.FileField(upload_to='videos/')
-    title = models.CharField(max_length=200)
+    # title = models.CharField(max_length=200)
 
     def __str__(self):
         return self.title

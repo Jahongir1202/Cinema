@@ -12,7 +12,7 @@ from .views import (
     SerialDetailView,
     VideoDetailView,
     MultifilmDetailView,
-    MultifilmVideoDetailView
+    MultifilmVideoDetailView,
 )
 #ozgardi
 urlpatterns = [

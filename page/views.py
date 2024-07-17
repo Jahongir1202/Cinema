@@ -1,6 +1,7 @@
-from django.shortcuts import render
 from django.views.generic import ListView,DetailView
 from .models import Cinema,Video,Multifilm,MultifilmVideo
+
+
 
 class CinemaViews(ListView):
     model = Cinema,
@@ -15,6 +16,8 @@ class CinemaViews(ListView):
         context['cinemas'] = Cinema.objects.all()
         context['serials'] = Serial.objects.all()
         return context
+
+
 
 
 class CinemaJangariView(ListView):
@@ -110,3 +113,4 @@ class MultifilmVideoDetailView(DetailView):
         context['multifilm'] = video.multifilm
         context['videos'] = video.multifilm.videos.all()
         return context
+
