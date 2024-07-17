@@ -1,0 +1,31 @@
+<div>
+    <h1>{{ object.title }}</h1>
+    <div>Poster: <img src="{{ object.photo.url }}" alt="{{ object.title }}"></div>
+    <div>Subtitle: {{ object.subtitle }}</div>
+    <div>State: {{ object.state }}</div>
+    <div>Years: {{ object.years }}</div>
+    <div>Language: {{ object.language }}</div>
+    <div>Time: {{ object.time }}</div>
+
+    {% if object.videos.all %}
+        {% with first_video=object.videos.first %}
+        <div>
+            <video width="320" height="240" controls>
+                <source src="{{ first_video.video_file.url }}" type="video/mp4">
+                Sizning brauzeringiz video tagini qo'llab-quvvatlamaydi.
+            </video>
+        </div>
+        {% endwith %}
+
+        <h2>Barcha videolar:</h2>
+        <ul>
+        {% for video in object.videos.all %}
+            <li>
+                <a href="{% url 'multifilm_video_detail' video.pk %}">Video {{ forloop.counter }}: {{ video.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Hech qanday video mavjud emas.</p>
+    {% endif %}
+</div>
