@@ -22,3 +22,14 @@
     </ul>
 {% endfor %}
 
+<h1>Multifilmlar</h1>
+{% for Multifilm in serials %}
+    <ul>
+        <li>
+            <a href="{% url 'multifilm_detail' Multifilm.pk %}">
+                <div>multifilm nomi: {{ Multifilm.title }}</div>
+                <div>Poster: <img src="{{ Multifilm.photo.url }}" alt="{{ Multifilm.title }}"></div>
+            </a>
+        </li>
+    </ul>
+{% endfor %}

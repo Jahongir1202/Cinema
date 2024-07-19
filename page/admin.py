@@ -1,4 +1,5 @@
 from django.contrib import admin
+from . import models
 from .models import Cinema, Serial, Video, Multifilm, MultifilmVideo
 
 class CinemaAdmin(admin.ModelAdmin):
@@ -25,4 +26,3 @@ class MultifilmVideoInline(admin.TabularInline):
 class MultiAdmin(admin.ModelAdmin):
     inlines = [MultifilmVideoInline]
 admin.site.register(Multifilm, MultiAdmin)
-

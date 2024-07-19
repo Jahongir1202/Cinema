@@ -29,5 +29,6 @@ urlpatterns = [
     path('video/<int:pk>/', VideoDetailView.as_view(), name='video_detail'),
     path('multifilm/<int:pk>/', MultifilmDetailView.as_view(), name='multifilm_detail'),
     path('multifilm_video/<int:pk>/', MultifilmVideoDetailView.as_view(), name='multifilm_video_detail'),
+    # path('cinema/<int:cinema_id>/', cinema_detail(), name='cinema_detail'),  # Yangi URL
 
 ]

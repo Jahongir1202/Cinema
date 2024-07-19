@@ -1,6 +1,7 @@
-from django.views.generic import ListView,DetailView
-from .models import Cinema,Video,Multifilm,MultifilmVideo
 
+from django.views.generic import ListView,DetailView
+
+from .models import Cinema, Video, Multifilm, MultifilmVideo
 
 
 class CinemaViews(ListView):
