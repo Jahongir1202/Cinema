@@ -1,9 +1,4 @@
-from sys import path_hooks
-from unittest.mock import patch
-
 from django.urls import path
-
-from api.views import AllModelsListView
 from rest.views import MoviaCinemaView, VideoCinemaView, MoviaSerialView, VideoSerialView, MoviaMultifilmView, \
     VideoMultifilmView, MoviaAllView, MoviaJangariView, MoviaHayotiyView, MoviaDramaView, MoviaUjasView, \
     MoviaRomanceView, MoviaFantastikView, MoviakomediaView, MoviaSearchView
@@ -15,7 +10,7 @@ urlpatterns = [
     path('serial/', MoviaSerialView.as_view(), name='serial'),
     path('serial/<int:pk>/', VideoSerialView.as_view(), name='id_serial'),
     path('multifilm/', MoviaMultifilmView.as_view(), name='multifilm'),
-    path('multifilm/<int:pk>/', VideoMultifilmView.as_view(), name='id_multifilm'),
+    path('multifilm/<int:pk>/',VideoMultifilmView.as_view(),name='id_multifilm'),
     path('jangari/',MoviaJangariView.as_view(),name='jangari'),
     path('komedia/', MoviakomediaView.as_view(), name='komedia'),
     path('drama/', MoviaDramaView.as_view(), name='drama'),
