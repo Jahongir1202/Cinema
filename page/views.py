@@ -1,7 +1,7 @@
-
 from django.views.generic import ListView,DetailView
-
 from .models import Cinema, Video, Multifilm, MultifilmVideo
+from django.views.generic import DetailView
+from .models import Serial
 
 
 class CinemaViews(ListView):
@@ -16,6 +16,7 @@ class CinemaViews(ListView):
         context = super().get_context_data(**kwargs)
         context['cinemas'] = Cinema.objects.all()
         context['serials'] = Serial.objects.all()
+        context['multifilm'] = Multifilm.objects.all()
         return context
 
 
@@ -81,8 +82,6 @@ class CinameJangariPage(DetailView):
     model = Cinema
     template_name = 'action_page.html'
 
-from django.views.generic import DetailView
-from .models import Serial
 
 class SerialDetailView(DetailView):
     model = Serial

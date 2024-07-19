@@ -11,6 +11,7 @@ class Cinema(models.Model):
     lenguage = models.CharField(max_length=50)
     time = models.CharField(max_length=50)
     video_file = models.FileField(upload_to='videos/')
+    hashtag = models.CharField(max_length=200)
     GENRE_CHOICES = [
         ('action', 'Jangari'),
         ('comedy', 'Komedia'),
@@ -36,6 +37,8 @@ class Serial(models.Model):
     years = models.CharField(max_length=50)
     lenguage = models.CharField(max_length=50)
     time = models.CharField(max_length=50)
+    hashtag = models.CharField(max_length=200)
+
     GENRE_CHOICES = [
         ('action', 'Jangari'),
         ('comedy', 'Komedia'),
@@ -67,6 +70,7 @@ class Multifilm(models.Model):
     years = models.CharField(max_length=50)
     language = models.CharField(max_length=50)
     time = models.CharField(max_length=50)
+    hashtag = models.CharField(max_length=200)
 
     def __str__(self):
         return self.title
@@ -79,5 +83,5 @@ class MultifilmVideo(models.Model):
     video_file = models.FileField(upload_to='videos/')
 
     def __str__(self):
-        return self.title
+        return f"{self.multifilm.title} - Video"
 

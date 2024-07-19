@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from page.models import Cinema, Serial, Video, Multifilm, MultifilmVideo
+from page.models import Cinema, Serial, Multifilm, Video, MultifilmVideo
 
 class CinemaSerializer(serializers.ModelSerializer):
     class Meta:

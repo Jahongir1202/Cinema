@@ -5,7 +5,7 @@ from .models import Cinema, Serial, Video, Multifilm, MultifilmVideo
 class CinemaAdmin(admin.ModelAdmin):
     list_display = ('title', 'genre')
     list_filter = ('genre',)
-    search_fields = ('title',)
+    search_fields = ('title', 'hashtag')
 
 admin.site.register(Cinema, CinemaAdmin)
 
@@ -16,7 +16,7 @@ class VideoInline(admin.TabularInline):
 
 class SerialAdmin(admin.ModelAdmin):
     inlines = [VideoInline]
-
+    search_fields = ('title', 'hashtag')
 admin.site.register(Serial, SerialAdmin)
 
 class MultifilmVideoInline(admin.TabularInline):
@@ -25,4 +25,5 @@ class MultifilmVideoInline(admin.TabularInline):
 
 class MultiAdmin(admin.ModelAdmin):
     inlines = [MultifilmVideoInline]
+    search_fields = ('title', 'hashtag')
 admin.site.register(Multifilm, MultiAdmin)
