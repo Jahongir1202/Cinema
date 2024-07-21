@@ -1,3 +1,4 @@
+from django.views.generic import ListView
 from rest_framework.generics import  RetrieveAPIView
 from .serializers import MoviaVideoSerializer
 from rest_framework.response import Response
@@ -150,3 +151,17 @@ class MoviaSearchView(ListAPIView):
     def get_queryset(self):
         query = self.request.GET.get('search', '')
         return Movia.objects.filter(title__icontains=query).order_by('-title','hashtag')
+
+
+
+
+#test templates
+
+class TemplatesView(ListView):
+    model = Movia
+    template_name = "jangari.html"
+
+    def get_queryset(self):
+        return Movia.objects.filter(genre='jangari')
+
+

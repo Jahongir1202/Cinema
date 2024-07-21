@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>salom</h1>
+    {% for Movia in object_list %}
+        <a href="{% if Movia.type == 'serial' %}{% url 'id_serial' Movia.pk %}{% elif Movia.type == 'multifilm' %}{% url 'id_multifilm' Movia.pk %}{% else %}{% url 'id_cinema' Movia.pk %}{% endif %}">
+            <ul>
+                <li>{{ Movia.title }}</li>
+                <li><img src="{{ Movia.photo.url }}" alt="{{ Movia.title }}"></li>
+            </ul>
+        </a>
+    {% endfor %}
+</body>
+</html>
