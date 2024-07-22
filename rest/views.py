@@ -1,6 +1,7 @@
+from rest_framework import status
 from django.views.generic import ListView
 from rest_framework.generics import  RetrieveAPIView
-from .serializers import MoviaVideoSerializer
+from .serializers import MoviaVideoSerializer, CommentsSerializer
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from .models import Movia
@@ -53,14 +54,46 @@ class VideoCinemaView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
         serial_serializer = self.get_serializer(instance)
+        instance.increment_views()  # Ko'rishlar sonini oshiring
+
         videos = instance.videos.all()
+        comments = instance.comments.all()
+
         video_serializer = MoviaVideoSerializer(videos, many=True)
+        comment_serializer = CommentsSerializer(comments, many=True)
 
         return Response({
             'movia': serial_serializer.data,
-            'videos': video_serializer.data
+            'videos': video_serializer.data,
+            'comments': comment_serializer.data
         })
 
+    def post(self, request, *args, **kwargs):
+        instance = Movia.objects.get(pk=kwargs['pk'], type='cinema')
+        data = request.data.copy()
+        data['comments_id'] = instance.id  # Tashqi kalitni Movia ob'ektiga o'rnatish
+
+        serializer = CommentsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        action = request.data.get('action')
+
+        if action == 'like':
+            instance.like()
+        elif action == 'dislike':
+            instance.dislike()
+        else:
+            return Response({'error': 'Invalid action'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({
+            'likes': instance.likes,
+            'dislikes': instance.dislikes
+        })
 # End Cinema
 
 # Serial
@@ -77,12 +110,45 @@ class VideoSerialView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
         serial_serializer = self.get_serializer(instance)
+        instance.increment_views()
         videos = instance.videos.all()
+        comments = instance.comments.all()
+
         video_serializer = MoviaVideoSerializer(videos, many=True)
+        comment_serializer = CommentsSerializer(comments, many=True)
 
         return Response({
             'movia': serial_serializer.data,
-            'videos': video_serializer.data
+            'videos': video_serializer.data,
+            'comments': comment_serializer.data
+
+        })
+
+    def post(self, request, *args, **kwargs):
+        instance = Movia.objects.get(pk=kwargs['pk'], type='cinema')
+        data = request.data.copy()
+        data['comments_id'] = instance.id  # Tashqi kalitni Movia ob'ektiga o'rnatish
+
+        serializer = CommentsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        action = request.data.get('action')
+
+        if action == 'like':
+            instance.like()
+        elif action == 'dislike':
+            instance.dislike()
+        else:
+            return Response({'error': 'Invalid action'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({
+            'likes': instance.likes,
+            'dislikes': instance.dislikes
         })
 # End Serial
 
@@ -104,12 +170,45 @@ class VideoMultifilmView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
         movia_serializer = self.get_serializer(instance)
+        instance.increment_views()
         videos = instance.videos.all()
+        comments = instance.comments.all()
+
         video_serializer = MoviaVideoSerializer(videos, many=True)
+        comment_serializer = CommentsSerializer(comments, many=True)
 
         return Response({
             'movia': movia_serializer.data,
-            'videos': video_serializer.data
+            'videos': video_serializer.data,
+            'comments': comment_serializer.data
+
+        })
+
+    def post(self, request, *args, **kwargs):
+        instance = Movia.objects.get(pk=kwargs['pk'], type='cinema')
+        data = request.data.copy()
+        data['movia'] = instance.id  # Tashqi kalitni Movia ob'ektiga o'rnatish
+
+        serializer = CommentsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        action = request.data.get('action')
+
+        if action == 'like':
+            instance.like()
+        elif action == 'dislike':
+            instance.dislike()
+        else:
+            return Response({'error': 'Invalid action'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({
+            'likes': instance.likes,
+            'dislikes': instance.dislikes
         })
 # End Multifilm
 
