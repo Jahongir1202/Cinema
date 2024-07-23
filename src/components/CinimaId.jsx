@@ -1,27 +1,45 @@
-import  { useEffect } from 'react'
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Detail from './Detail';
 
-const CinimaId = () => {
-    const {id }= useParams()
-    console.log(id);
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`http://127.0.0.1:8000/rest/cinema/${id}`);    
-            const data = await response.json();
-            // setJangari(data);
-            console.log(data);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
-        fetchData();
-      }, []);
+const CinemaId = () => {
+  const [data, setData] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/rest/cinema/${id}`);
+        if (!response.ok) {
+          throw new Error('Tarmoq muammosi');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Ma'lumotni olishda xato:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
   return (
     <section>
-        cinema
+      {data ? (
+        <Detail 
+          title={data.movia?.title} 
+          genre={data.movia?.genre} 
+          country={data.movia?.state} 
+          year={data.movia?.years} 
+          watch={data.movia?.views_count}
+          name={data.movia?.subtitle}
+          imageUrl={data.movia?.photo}
+          videoUrl={data.videos}
+        />
+      ) : (
+        <p className='text-center font-semibold text-[24px]'>Yuklanmoqda...</p>
+      )}
     </section>
-  )
+  );
 }
 
-export default CinimaId
+export default CinemaId;

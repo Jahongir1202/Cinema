@@ -3,13 +3,12 @@ import heroBg from "../assets/hero-min.jpg";
 import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
  
   return (
-    <nav className="bg-transparent relative z-10">
+    <nav className="bg-transparent  absolute top-0 left-0 w-full z-10"  >
         <div className="container  mx-auto pr-4 ">
           <div className=" flex flex-wrap items-center justify-between">
             <Link to="/" className=" ">
