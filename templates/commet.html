@@ -1,0 +1,17 @@
+<!-- Example template for displaying and submitting comments -->
+<div>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li><strong>{{ comment.user }}:</strong> {{ comment.comment }} ({{ comment.created_at }})</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'cinema_comments' movia.id %}">
+        {% csrf_token %}
+        <input type="text" name="user" placeholder="Your name" required>
+        <textarea name="comment" placeholder="Your comment" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
