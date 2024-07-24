@@ -27,16 +27,21 @@ const Detail = ({ title, genre, country, year, name, imageUrl, videoUrl, watch }
         </div>
 
         <div className="mt-20">
-          {videoUrl && videoUrl.map((item) => (
-            <iframe
-            key={item.id}
-            src={`http://localhost:8000${item.video_file}`} // Ensure this is correct
-            width="100%"
-            height="310"
-            title={`Video ${item.id}`}
-            loading="lazy"
-          ></iframe>
-          ))}
+          {videoUrl && videoUrl.map((item) => {
+            const videoSrc = `http://localhost:8000/${item.video_file}`;
+            console.log("Video URL:", videoSrc); // Log the URL for debugging
+            return (
+              <iframe
+                key={item.id}
+                src={videoSrc}
+                width="100%"
+                height="310"
+                title={`Video ${item.id}`}
+                loading="lazy"
+                onError={(e) => console.error("Error loading video:", e)} // Log errors
+              ></iframe>
+            );
+          })}
         </div>
       </div>
     </section>
