@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-nr+f%s7j743#%b$v2&2d4ll^bkdku9l(o8cw&m=t5f-=9b814k"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -58,8 +58,10 @@ MIDDLEWARE = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 ROOT_URLCONF = "config.urls"
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']  # Agar HTTPS ishlatilsa
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://sizning-frontend.railway.app",  # Frontend manzilingiz
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
